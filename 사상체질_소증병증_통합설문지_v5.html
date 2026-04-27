@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>사상체질 소증·병증 통합 설문지</title>
+<style>
+:root{--soc:#1F4E79;--soc-bg:#EEF4FB;--soc-bdr:#85B7EB;--soc-acc:#2E75B6;
+--byeong:#7A3800;--byeong-bg:#FDF3E7;--byeong-bdr:#EF9F27;--byeong-acc:#BA7517;
+--domain-hd:#22263A;--border:#D8DCE6;--bg:#F4F6FA;--white:#fff;
+--text:#1A1A1A;--muted:#6B7280;--radius:8px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif;
+background:var(--bg);color:var(--text);font-size:14px;line-height:1.7;}
+.page{max-width:900px;margin:0 auto;padding:0 0 80px;}
+.survey-header{background:var(--domain-hd);color:#fff;padding:36px 36px 28px;}
+.survey-header h1{font-size:20px;font-weight:700;margin-bottom:4px;}
+.survey-header .sub{font-size:12px;opacity:.65;margin-bottom:20px;}
+.guide-box{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+border-radius:var(--radius);padding:14px 18px;font-size:13px;line-height:1.9;}
+.guide-box b{color:#74C0EE;}
+.info-section{background:var(--white);border-bottom:1px solid var(--border);padding:22px 36px;}
+.info-title{font-size:13px;font-weight:700;color:var(--soc);margin-bottom:14px;
+letter-spacing:.04em;text-transform:uppercase;}
+.info-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
+.info-field label{display:block;font-size:11px;color:var(--muted);margin-bottom:4px;font-weight:500;}
+.info-field input,.info-field select{width:100%;border:1px solid var(--border);border-radius:6px;
+padding:7px 10px;font-size:13px;font-family:inherit;background:#FAFBFC;}
+.info-field.full{grid-column:1/-1;}
+.radio-inline{display:flex;gap:18px;padding-top:6px;}
+.radio-inline label{display:flex;align-items:center;gap:5px;font-size:13px;}
+.domain{background:var(--white);border:1px solid var(--border);border-radius:10px;
+margin:16px 16px 0;overflow:hidden;}
+.domain-header{background:var(--domain-hd);color:#fff;padding:14px 20px;
+display:flex;align-items:center;gap:14px;}
+.d-icon{font-size:22px;}.d-title{font-size:16px;font-weight:700;}
+.d-counts{display:flex;gap:6px;margin-top:3px;}
+.cnt-badge{font-size:11px;padding:1px 8px;border-radius:10px;font-weight:500;}
+.cnt-soc{background:rgba(116,192,238,.2);color:#74C0EE;border:1px solid rgba(116,192,238,.3);}
+.cnt-byeong{background:rgba(239,159,39,.2);color:#FAC775;border:1px solid rgba(239,159,39,.3);}
+.sec-block{padding:18px 20px 22px;}
+.sec-block+.sec-block{border-top:2px dashed var(--border);}
+.sec-soc{background:#FAFCFF;}.sec-byeong{background:#FFFAF4;}
+.sec-top{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.sec-badge{font-size:11.5px;font-weight:700;padding:3px 12px;border-radius:20px;white-space:nowrap;}
+.badge-soc{background:var(--soc-bg);color:var(--soc);border:1px solid var(--soc-bdr);}
+.badge-byeong{background:var(--byeong-bg);color:var(--byeong);border:1px solid var(--byeong-bdr);}
+.sec-desc{font-size:12px;color:var(--muted);}
+/* 체중 측정 입력 */
+.meas-block{background:var(--soc-bg);border:1px solid var(--soc-bdr);border-radius:8px;
+padding:14px 18px;margin-bottom:14px;}
+.meas-row{display:flex;align-items:center;gap:10px;padding:9px 0;
+border-bottom:1px dashed var(--soc-bdr);}
+.meas-row:last-child{border-bottom:none;}
+.meas-note{font-size:11.5px;color:var(--muted);font-style:italic;
+margin-bottom:3px;display:block;width:100%;}
+.meas-label{font-size:13.5px;color:var(--text);font-weight:500;min-width:240px;}
+.meas-input{width:90px;border:1px solid var(--soc-bdr);border-radius:5px;
+padding:6px 10px;font-size:14px;font-family:inherit;text-align:right;background:white;}
+.meas-unit{font-size:13px;color:var(--muted);}
+/* 문항 */
+.question{margin-bottom:14px;}
+.q-head{display:flex;align-items:flex-start;gap:8px;margin-bottom:5px;}
+.qnum{font-size:11px;font-weight:700;color:var(--soc-acc);min-width:32px;padding-top:1px;flex-shrink:0;}
+.sec-byeong .qnum{color:var(--byeong-acc);}
+.qtext{font-size:14px;font-weight:600;color:var(--text);line-height:1.55;}
+.q-note{font-size:12px;color:var(--muted);font-style:italic;margin:2px 0 6px 40px;}
+.choices{margin-left:40px;display:flex;flex-direction:column;gap:4px;margin-top:6px;}
+.choice{display:flex;align-items:flex-start;gap:8px;padding:6px 10px;border-radius:5px;
+cursor:pointer;font-size:13px;transition:background .1s;}
+.choice:hover{background:#F0F4FF;}
+.choice input{margin-top:2px;flex-shrink:0;}
+.cnum{font-weight:600;color:var(--soc-acc);min-width:20px;flex-shrink:0;font-size:12px;}
+.sec-byeong .cnum{color:var(--byeong-acc);}
+.q-group{margin-bottom:16px;}
+.q-group-label{font-size:13.5px;font-weight:600;color:var(--byeong);background:#FEF3E2;
+border-left:3px solid var(--byeong-acc);padding:8px 12px;border-radius:0 5px 5px 0;
+margin-bottom:8px;line-height:1.5;}
+.q-note-grp{font-size:12px;color:var(--muted);font-style:italic;margin-bottom:6px;padding-left:4px;}
+.table-wrap{overflow-x:auto;}
+.mtx{width:100%;border-collapse:collapse;font-size:12.5px;min-width:500px;}
+.mtx th{background:#F0F2F8;color:var(--muted);font-weight:600;padding:7px 4px;
+text-align:center;border:1px solid var(--border);font-size:11px;line-height:1.4;}
+.mtx td{padding:7px 8px;border:1px solid var(--border);text-align:center;}
+.mtx td.row-label{text-align:left;color:var(--text);font-size:12.5px;
+line-height:1.5;min-width:200px;padding-left:10px;}
+.mtx th.row-label-th{min-width:200px;}
+.mtx tbody tr:nth-child(even){background:#FAFBFD;}
+.mtx tbody tr:hover{background:#F0F4FF;}
+.sec-byeong .mtx th{background:#FEF3E2;}
+.sec-byeong .mtx tbody tr:hover{background:#FFF5E6;}
+.sub-group-label{font-size:12px;font-weight:700;color:var(--byeong-acc);
+letter-spacing:.05em;text-transform:uppercase;margin:12px 0 6px;padding:4px 8px;
+background:rgba(239,159,39,.1);border-radius:4px;display:inline-block;}
+.free-input-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;
+padding:8px 0;border-bottom:1px dashed var(--border);}
+.free-input-row .fi-label{font-size:13px;color:var(--text);min-width:200px;}
+.free-input-row input[type=number]{width:80px;border:1px solid var(--border);
+border-radius:5px;padding:5px 8px;font-size:13px;font-family:inherit;}
+.free-input-row .fi-unit{font-size:12px;color:var(--muted);}
+.bottom-pad{height:40px;}
+@media(max-width:600px){
+.survey-header,.info-section{padding-left:16px;padding-right:16px;}
+.domain{margin:12px 8px 0;}.domain-header{padding:12px 14px;}
+.sec-block{padding:14px 14px 18px;}.info-grid{grid-template-columns:1fr;}
+.choices{margin-left:0;}.q-head{flex-direction:column;gap:3px;}
+.qnum{min-width:auto;}.meas-row{flex-wrap:wrap;}.meas-label{min-width:100%;}}
+@media print{body{background:white;font-size:11px;}
+.domain{margin:8px 0 0;border-radius:0;}
+.choice:hover,.mtx tbody tr:hover{background:none;}}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="survey-header">
+  <h1>사상체질 소증(素證) · 병증(病證) 통합 설문지</h1>
+  <div class="sub">Sasang Constitutional Medicine — Integrated Symptom Survey</div>
+  <div class="guide-box">
+    <b>▣ 응답 안내</b><br>
+    · <b>소증(파란색 영역)</b>: 평소(최근 3개월 이내) 본인의 일반적 상태를 기준으로 응답해 주세요.<br>
+    · <b>병증(주황색 영역)</b>: 지난 한 달 동안 경험한 증상을 기준으로 응답해 주세요.<br>
+    · 각 문항에서 가장 가까운 번호를 선택해 주세요. 특정 증상이 없다면 가장 낮은 항목(1번)을 선택해 주세요.<br>
+    · 다중선택 문항(□)은 해당하는 항목 모두 선택해 주세요.
+  </div>
+</div>
+
+<div class="info-section">
+  <div class="info-title">기본 정보</div>
+  <div class="info-grid">
+    <div class="info-field"><label>성명</label><input type="text" placeholder="홍길동"></div>
+    <div class="info-field"><label>나이 (만)</label><input type="number" placeholder="45" min="1" max="120"></div>
+    <div class="info-field"><label>성별</label><div class="radio-inline">
+      <label><input type="radio" name="gender" value="M"> 남성</label>
+      <label><input type="radio" name="gender" value="F"> 여성</label>
+    </div></div>
+    <div class="info-field"><label>당신의 체질은</label>
+      <select>
+        <option value="">선택</option>
+        <option>소음인</option><option>소양인</option>
+        <option>태음인</option><option>태양인</option>
+      </select>
+    </div>
+    <div class="info-field"><label>설문 날짜</label><input type="date"></div>
+    <div class="info-field"><label>주소호소증상 (주증)</label>
+      <input type="text" placeholder="예) 소화불량, 수면장애 등"></div>
+  </div>
+</div>
+
+<div class="domain">
+<div class="domain-header"><span class="d-icon">⚖️</span><div class="d-info"><div class="d-title">영역 1. 체중</div><div class="d-counts"><span class="cnt-badge cnt-soc">소증 5문항</span></div></div></div>
+
+<div class="sec-block sec-soc"><div class="sec-top"><span class="sec-badge badge-soc">평소 증상 &nbsp;·&nbsp; 소증(素證)</span><span class="sec-desc">현재 신체계측치와 평소 체중 변화 패턴을 기입해 주세요.</span></div>
+
+<div class="meas-block">
+<div class="meas-row"><span class="meas-label">QS1 · 신장</span><input type="number" class="meas-input" placeholder="숫자 입력"> <span class="meas-unit">cm</span></div>
+
+<div class="meas-row"><span class="meas-label">QS2 · 체중 (현재)</span><input type="number" class="meas-input" placeholder="숫자 입력"> <span class="meas-unit">kg</span></div>
+
+<div class="meas-row"><div class="q-note meas-note">※ 여성: 출산 후 6개월 이내 체중은 제외해 주세요.</div><span class="meas-label">QS3 · 성인 이후 최고 체중</span><input type="number" class="meas-input" placeholder="숫자 입력"> <span class="meas-unit">kg</span></div>
+
+<div class="meas-row"><div class="q-note meas-note">※ 여성: 출산 후 6개월 이내 체중은 제외해 주세요.</div><span class="meas-label">QS4 · 성인 이후 최저 체중</span><input type="number" class="meas-input" placeholder="숫자 입력"> <span class="meas-unit">kg</span></div>
+
+</div>
+<div class="question"><div class="q-head"><span class="qnum">QS5</span><span class="qtext">평소 체중 변화는 어떤 편입니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS5"> <span class="cnum">1.</span> 식사량을 늘려도 체중이 쉽게 빠지거나 잘 늘지 않는다</label>
+<label class="choice"><input type="radio" name="qS5"> <span class="cnum">2.</span> 조금만 소홀해도 체중이 쉽게 빠지는 편이다</label>
+<label class="choice"><input type="radio" name="qS5"> <span class="cnum">3.</span> 체중 변화가 거의 없으며 항상 일정하게 유지된다</label>
+<label class="choice"><input type="radio" name="qS5"> <span class="cnum">4.</span> 조금만 방심해도 체중이 쉽게 늘어나는 편이다</label>
+<label class="choice"><input type="radio" name="qS5"> <span class="cnum">5.</span> 식사량을 조절해도 체중이 쉽게 늘거나 잘 빠지지 않는다</label>
+</div></div>
+
+</div>
+</div>
+
+<div class="domain">
+<div class="domain-header"><span class="d-icon">🌙</span><div class="d-info"><div class="d-title">영역 2. 수면</div><div class="d-counts"><span class="cnt-badge cnt-soc">소증 7문항</span><span class="cnt-badge cnt-byeong">병증 20문항</span></div></div></div>
+
+<div class="sec-block sec-soc"><div class="sec-top"><span class="sec-badge badge-soc">평소 증상 &nbsp;·&nbsp; 소증(素證)</span><span class="sec-desc">평소(최근 3개월 이내) 수면 상태를 기준으로 응답해 주세요.</span></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS6</span><span class="qtext">잠귀(소음에 대한 민감도)는 어떤 편입니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS6"> <span class="cnum">1.</span> 매우 어두운 편이다 (어떤 소리에도 잘 깨지 않음)</label>
+<label class="choice"><input type="radio" name="qS6"> <span class="cnum">2.</span> 조금 어두운 편이다</label>
+<label class="choice"><input type="radio" name="qS6"> <span class="cnum">3.</span> 보통이다 (일상적 소음에는 안 깨지만 큰 소리엔 반응)</label>
+<label class="choice"><input type="radio" name="qS6"> <span class="cnum">4.</span> 조금 밝은 편이다 (작은 소리에도 반응)</label>
+<label class="choice"><input type="radio" name="qS6"> <span class="cnum">5.</span> 매우 밝은 편이다 (아주 작은 소리에도 즉시 깸)</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS7</span><span class="qtext">스트레스를 받거나 걱정이 있으면 잠들기 어렵거나 수면이 방해됩니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS7"> <span class="cnum">1.</span> 전혀 영향받지 않는다 (평소처럼 잘 잠)</label>
+<label class="choice"><input type="radio" name="qS7"> <span class="cnum">2.</span> 약간 영향받지만 금방 잠든다</label>
+<label class="choice"><input type="radio" name="qS7"> <span class="cnum">3.</span> 보통이다 (심한 스트레스 시에만 가끔 설침)</label>
+<label class="choice"><input type="radio" name="qS7"> <span class="cnum">4.</span> 자주 방해받는다 (해결될 때까지 수일간 설침)</label>
+<label class="choice"><input type="radio" name="qS7"> <span class="cnum">5.</span> 거의 항상 방해받는다 (작은 걱정에도 밤을 지새우기도 함)</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS8</span><span class="qtext">낮에 조용한 환경에서 누우면 30분 이내에 잠들 수 있습니까?</span></div><div class="q-note">※ 낮잠 입면 용이성을 묻는 문항입니다.</div><div class="choices"><label class="choice"><input type="radio" name="qS8"> <span class="cnum">1.</span> 매우 쉽다 (어디서든 10분 내로 잠듦)</label>
+<label class="choice"><input type="radio" name="qS8"> <span class="cnum">2.</span> 비교적 쉽다 (조용한 환경이면 잘 잠)</label>
+<label class="choice"><input type="radio" name="qS8"> <span class="cnum">3.</span> 보통이다 (매우 피곤할 때만 잠들 수 있음)</label>
+<label class="choice"><input type="radio" name="qS8"> <span class="cnum">4.</span> 비교적 어렵다 (피곤해도 주변 자극에 예민)</label>
+<label class="choice"><input type="radio" name="qS8"> <span class="cnum">5.</span> 어렵다 (신경이 예민해져 낮잠 자체가 불가능)</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS9</span><span class="qtext">여행·출장 등 환경이 바뀌면 평소보다 수면의 질이 낮아집니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS9"> <span class="cnum">1.</span> 전혀 영향받지 않는다</label>
+<label class="choice"><input type="radio" name="qS9"> <span class="cnum">2.</span> 약간 영향받지만 자는 것에 지장이 없다</label>
+<label class="choice"><input type="radio" name="qS9"> <span class="cnum">3.</span> 다소 예민하며 적응하는 데 불편함을 느낀다</label>
+<label class="choice"><input type="radio" name="qS9"> <span class="cnum">4.</span> 많이 예민하여 잠을 설칠 때가 많다</label>
+<label class="choice"><input type="radio" name="qS9"> <span class="cnum">5.</span> 심하게 예민하여 잠을 거의 못 잔다</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS10</span><span class="qtext">실내 온도가 높으면(더우면) 자는 것이 어렵습니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS10"> <span class="cnum">1.</span> 전혀 예민하지 않다</label>
+<label class="choice"><input type="radio" name="qS10"> <span class="cnum">2.</span> 약간 예민하지만 자는 것에 지장이 없다</label>
+<label class="choice"><input type="radio" name="qS10"> <span class="cnum">3.</span> 다소 예민하며 불편하게 느낀다</label>
+<label class="choice"><input type="radio" name="qS10"> <span class="cnum">4.</span> 많이 예민하여 잠을 설치거나 힘들다</label>
+<label class="choice"><input type="radio" name="qS10"> <span class="cnum">5.</span> 심하게 예민하여 잠을 거의 못 잔다</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS11</span><span class="qtext">실내 온도가 낮으면(추우면) 자는 것이 어렵습니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS11"> <span class="cnum">1.</span> 전혀 예민하지 않다</label>
+<label class="choice"><input type="radio" name="qS11"> <span class="cnum">2.</span> 약간 예민하지만 자는 것에 지장이 없다</label>
+<label class="choice"><input type="radio" name="qS11"> <span class="cnum">3.</span> 다소 예민하며 불편하게 느낀다</label>
+<label class="choice"><input type="radio" name="qS11"> <span class="cnum">4.</span> 많이 예민하여 잠을 설치거나 힘들다</label>
+<label class="choice"><input type="radio" name="qS11"> <span class="cnum">5.</span> 심하게 예민하여 잠을 거의 못 잔다</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS12</span><span class="qtext">밀폐된 공간(창문·방문 닫힘)에서 자는 것을 불편하게 느낍니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS12"> <span class="cnum">1.</span> 전혀 예민하지 않다</label>
+<label class="choice"><input type="radio" name="qS12"> <span class="cnum">2.</span> 약간 예민하지만 자는 것에 지장이 없다</label>
+<label class="choice"><input type="radio" name="qS12"> <span class="cnum">3.</span> 다소 예민하며 불편하게 느낀다</label>
+<label class="choice"><input type="radio" name="qS12"> <span class="cnum">4.</span> 많이 예민하여 잠을 설치거나 힘들다</label>
+<label class="choice"><input type="radio" name="qS12"> <span class="cnum">5.</span> 심하게 예민하여 잠을 거의 못 잔다</label>
+</div></div>
+
+</div>
+<div class="sec-block sec-byeong"><div class="sec-top"><span class="sec-badge badge-byeong">최근 한달 증상 &nbsp;·&nbsp; 병증(病證)</span><span class="sec-desc">지난 한 달 동안의 수면 상태를 기준으로 응답해 주세요.</span></div>
+
+<div class="q-group">
+  <div class="q-group-label">지난 한달 동안의 수면 양상</div>
+  <div class="free-input-row"><span class="fi-label">평균 수면 시간 (잠자리에서 나올 때까지)</span>
+    <input type="number" min="0" max="24" placeholder="7"> <span class="fi-unit">시간</span>
+    <input type="number" min="0" max="59" placeholder="0"> <span class="fi-unit">분</span></div>
+  <div class="free-input-row"><span class="fi-label">실제로 잠잔 시간</span>
+    <input type="number" min="0" max="24" placeholder="6"> <span class="fi-unit">시간</span>
+    <input type="number" min="0" max="59" placeholder="0"> <span class="fi-unit">분</span></div>
+</div>
+<div class="question"><div class="q-head"><span class="qnum">QSB-수1</span><span class="qtext">지난 한달 동안, 밤에 잠자리에 들어서 잠이 들기까지 보통 얼마나 오래 걸렸습니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qSB-수1"> <span class="cnum">1.</span> 1. 15분 이하</label>
+<label class="choice"><input type="radio" name="qSB-수1"> <span class="cnum">2.</span> 2. 16~30분</label>
+<label class="choice"><input type="radio" name="qSB-수1"> <span class="cnum">3.</span> 3. 31분~60분</label>
+<label class="choice"><input type="radio" name="qSB-수1"> <span class="cnum">4.</span> 4. 1시간~2시간</label>
+<label class="choice"><input type="radio" name="qSB-수1"> <span class="cnum">5.</span> 5. 2시간 이상</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QSB-수2</span><span class="qtext">지난 한달 동안, 전반적으로 수면의 질이 어느 정도라고 평가하십니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qSB-수2"> <span class="cnum">1.</span> 1. 매우 좋았다</label>
+<label class="choice"><input type="radio" name="qSB-수2"> <span class="cnum">2.</span> 2. 대체로 좋았다</label>
+<label class="choice"><input type="radio" name="qSB-수2"> <span class="cnum">3.</span> 3. 보통이었다</label>
+<label class="choice"><input type="radio" name="qSB-수2"> <span class="cnum">4.</span> 4. 대체로 나빴다</label>
+<label class="choice"><input type="radio" name="qSB-수2"> <span class="cnum">5.</span> 5. 매우 나빴다</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QSB-수3</span><span class="qtext">지난 한달 동안, 잠이 들기 위해 얼마나 자주 약을 복용했습니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qSB-수3"> <span class="cnum">1.</span> 1. 지난 한달 동안 없었다</label>
+<label class="choice"><input type="radio" name="qSB-수3"> <span class="cnum">2.</span> 2. 드물게 있었다 (주 1회 미만)</label>
+<label class="choice"><input type="radio" name="qSB-수3"> <span class="cnum">3.</span> 3. 가끔 있었다 (주 1~2회 정도)</label>
+<label class="choice"><input type="radio" name="qSB-수3"> <span class="cnum">4.</span> 4. 자주 있었다 (주 3~4회 정도)</label>
+<label class="choice"><input type="radio" name="qSB-수3"> <span class="cnum">5.</span> 5. 거의 매일 있었다 (주 5회 이상)</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QSB-수4</span><span class="qtext">지난 한달 동안, 운전·식사·학업·사회활동 중 얼마나 자주 졸음을 느꼈습니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qSB-수4"> <span class="cnum">1.</span> 1. 지난 한달 동안 없었다</label>
+<label class="choice"><input type="radio" name="qSB-수4"> <span class="cnum">2.</span> 2. 드물게 있었다 (주 1회 미만)</label>
+<label class="choice"><input type="radio" name="qSB-수4"> <span class="cnum">3.</span> 3. 가끔 있었다 (주 1~2회 정도)</label>
+<label class="choice"><input type="radio" name="qSB-수4"> <span class="cnum">4.</span> 4. 자주 있었다 (주 3~4회 정도)</label>
+<label class="choice"><input type="radio" name="qSB-수4"> <span class="cnum">5.</span> 5. 거의 매일 있었다 (주 5회 이상)</label>
+</div></div>
+
+<div class="q-group"><div class="q-group-label">지난 한달 동안, 아래의 이유로 잠자는 데 얼마나 자주 문제가 있었습니까?</div><div class="table-wrap"><table class="mtx"><thead><tr><th class="row-label-th"></th><th>없었다</th><th>드물게<br>(주1회미만)</th><th>가끔<br>(주1~2회)</th><th>자주<br>(주3~4회)</th><th>거의매일<br>(주5회이상)</th></tr></thead><tbody><tr><td class="row-label">취침 후 30분 이내에 잠들 수 없었다.</td><td><input type="radio" name="b_sl_c1_0"></td><td><input type="radio" name="b_sl_c1_1"></td><td><input type="radio" name="b_sl_c1_2"></td><td><input type="radio" name="b_sl_c1_3"></td><td><input type="radio" name="b_sl_c1_4"></td></tr>
+<tr><td class="row-label">한밤중이나 새벽에 자주 깼다.</td><td><input type="radio" name="b_sl_c2_0"></td><td><input type="radio" name="b_sl_c2_1"></td><td><input type="radio" name="b_sl_c2_2"></td><td><input type="radio" name="b_sl_c2_3"></td><td><input type="radio" name="b_sl_c2_4"></td></tr>
+<tr><td class="row-label">화장실에 가려고 일어나야 했다.</td><td><input type="radio" name="b_sl_c3_0"></td><td><input type="radio" name="b_sl_c3_1"></td><td><input type="radio" name="b_sl_c3_2"></td><td><input type="radio" name="b_sl_c3_3"></td><td><input type="radio" name="b_sl_c3_4"></td></tr>
+<tr><td class="row-label">편안하게 숨 쉴 수가 없었다.</td><td><input type="radio" name="b_sl_c4_0"></td><td><input type="radio" name="b_sl_c4_1"></td><td><input type="radio" name="b_sl_c4_2"></td><td><input type="radio" name="b_sl_c4_3"></td><td><input type="radio" name="b_sl_c4_4"></td></tr>
+<tr><td class="row-label">호흡이 거칠거나 시끄럽게 코를 골았다.</td><td><input type="radio" name="b_sl_c5_0"></td><td><input type="radio" name="b_sl_c5_1"></td><td><input type="radio" name="b_sl_c5_2"></td><td><input type="radio" name="b_sl_c5_3"></td><td><input type="radio" name="b_sl_c5_4"></td></tr>
+<tr><td class="row-label">너무 춥다고 느꼈다.</td><td><input type="radio" name="b_sl_c6_0"></td><td><input type="radio" name="b_sl_c6_1"></td><td><input type="radio" name="b_sl_c6_2"></td><td><input type="radio" name="b_sl_c6_3"></td><td><input type="radio" name="b_sl_c6_4"></td></tr>
+<tr><td class="row-label">너무 덥다고 느꼈다.</td><td><input type="radio" name="b_sl_c7_0"></td><td><input type="radio" name="b_sl_c7_1"></td><td><input type="radio" name="b_sl_c7_2"></td><td><input type="radio" name="b_sl_c7_3"></td><td><input type="radio" name="b_sl_c7_4"></td></tr>
+<tr><td class="row-label">꿈을 많이 꾸었다.</td><td><input type="radio" name="b_sl_c8_0"></td><td><input type="radio" name="b_sl_c8_1"></td><td><input type="radio" name="b_sl_c8_2"></td><td><input type="radio" name="b_sl_c8_3"></td><td><input type="radio" name="b_sl_c8_4"></td></tr>
+<tr><td class="row-label">자는 동안 땀이 났다.</td><td><input type="radio" name="b_sl_c9_0"></td><td><input type="radio" name="b_sl_c9_1"></td><td><input type="radio" name="b_sl_c9_2"></td><td><input type="radio" name="b_sl_c9_3"></td><td><input type="radio" name="b_sl_c9_4"></td></tr>
+<tr><td class="row-label">통증이 있었다.</td><td><input type="radio" name="b_sl_c10_0"></td><td><input type="radio" name="b_sl_c10_1"></td><td><input type="radio" name="b_sl_c10_2"></td><td><input type="radio" name="b_sl_c10_3"></td><td><input type="radio" name="b_sl_c10_4"></td></tr>
+</tbody></table></div></div>
+
+<div class="q-group"><div class="q-group-label">지난 한달 동안, 아침에 일어났을 때 얼마나 자주 아래와 같은 문제가 있었습니까?</div><div class="table-wrap"><table class="mtx"><thead><tr><th class="row-label-th"></th><th>없었다</th><th>드물게<br>(주1회미만)</th><th>가끔<br>(주1~2회)</th><th>자주<br>(주3~4회)</th><th>거의매일<br>(주5회이상)</th></tr></thead><tbody><tr><td class="row-label">피로감이 심해서 일어나기가 어려웠다.</td><td><input type="radio" name="b_sl_m1_0"></td><td><input type="radio" name="b_sl_m1_1"></td><td><input type="radio" name="b_sl_m1_2"></td><td><input type="radio" name="b_sl_m1_3"></td><td><input type="radio" name="b_sl_m1_4"></td></tr>
+<tr><td class="row-label">얼굴이나 손이 부었다.</td><td><input type="radio" name="b_sl_m2_0"></td><td><input type="radio" name="b_sl_m2_1"></td><td><input type="radio" name="b_sl_m2_2"></td><td><input type="radio" name="b_sl_m2_3"></td><td><input type="radio" name="b_sl_m2_4"></td></tr>
+<tr><td class="row-label">가슴이 두근거렸다.</td><td><input type="radio" name="b_sl_m3_0"></td><td><input type="radio" name="b_sl_m3_1"></td><td><input type="radio" name="b_sl_m3_2"></td><td><input type="radio" name="b_sl_m3_3"></td><td><input type="radio" name="b_sl_m3_4"></td></tr>
+<tr><td class="row-label">근육통이 있었다.</td><td><input type="radio" name="b_sl_m4_0"></td><td><input type="radio" name="b_sl_m4_1"></td><td><input type="radio" name="b_sl_m4_2"></td><td><input type="radio" name="b_sl_m4_3"></td><td><input type="radio" name="b_sl_m4_4"></td></tr>
+</tbody></table></div></div>
+
+</div>
+</div>
+
+<div class="domain">
+<div class="domain-header"><span class="d-icon">🍽</span><div class="d-info"><div class="d-title">영역 3. 식욕 · 식사량</div><div class="d-counts"><span class="cnt-badge cnt-soc">소증 4문항</span><span class="cnt-badge cnt-byeong">병증 2문항</span></div></div></div>
+
+<div class="sec-block sec-soc"><div class="sec-top"><span class="sec-badge badge-soc">평소 증상 &nbsp;·&nbsp; 소증(素證)</span><span class="sec-desc">평소(최근 3개월 이내) 식욕·식사량 상태를 기준으로 응답해 주세요.</span></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS13</span><span class="qtext">평소 식욕은 같은 성별·비슷한 나이대 사람들과 비교하여 어느 정도입니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS13"> <span class="cnum">1.</span> 항상 적다</label>
+<label class="choice"><input type="radio" name="qS13"> <span class="cnum">2.</span> 대체로 적은 편이다</label>
+<label class="choice"><input type="radio" name="qS13"> <span class="cnum">3.</span> 보통이다</label>
+<label class="choice"><input type="radio" name="qS13"> <span class="cnum">4.</span> 대체로 많은 편이다</label>
+<label class="choice"><input type="radio" name="qS13"> <span class="cnum">5.</span> 항상 많다</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS14</span><span class="qtext">평소 식사량은 같은 성별·비슷한 나이대 사람들과 비교하여 어느 정도입니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS14"> <span class="cnum">1.</span> 항상 적다</label>
+<label class="choice"><input type="radio" name="qS14"> <span class="cnum">2.</span> 대체로 적은 편이다</label>
+<label class="choice"><input type="radio" name="qS14"> <span class="cnum">3.</span> 보통이다</label>
+<label class="choice"><input type="radio" name="qS14"> <span class="cnum">4.</span> 대체로 많은 편이다</label>
+<label class="choice"><input type="radio" name="qS14"> <span class="cnum">5.</span> 항상 많다</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS15</span><span class="qtext">스트레스를 받으면 식욕이나 식사량에 변화가 생깁니까?</span></div><div class="q-note">※ 변화의 방향(감소/증가)까지 선택해 주세요.</div><div class="choices"><label class="choice"><input type="radio" name="qS15"> <span class="cnum">1.</span> 변화 없다 (스트레스에 영향받지 않음)</label>
+<label class="choice"><input type="radio" name="qS15"> <span class="cnum">2.</span> 식욕이 다소 줄어 평소보다 적게 먹는다</label>
+<label class="choice"><input type="radio" name="qS15"> <span class="cnum">3.</span> 식욕이 크게 줄어 식사를 거의 거른다</label>
+<label class="choice"><input type="radio" name="qS15"> <span class="cnum">4.</span> 식욕이 다소 늘어 평소보다 많이 먹는다</label>
+<label class="choice"><input type="radio" name="qS15"> <span class="cnum">5.</span> 식욕이 크게 늘어 폭식하는 경향이 있다</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS16</span><span class="qtext">평소 식사속도는 어떤 편입니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS16"> <span class="cnum">1.</span> 항상 느리다 (항상 다른 사람보다 늦게 마침)</label>
+<label class="choice"><input type="radio" name="qS16"> <span class="cnum">2.</span> 대체로 느린 편이다</label>
+<label class="choice"><input type="radio" name="qS16"> <span class="cnum">3.</span> 보통이다 (남들과 비슷하게 마침)</label>
+<label class="choice"><input type="radio" name="qS16"> <span class="cnum">4.</span> 대체로 빠른 편이다</label>
+<label class="choice"><input type="radio" name="qS16"> <span class="cnum">5.</span> 항상 빠르다 (항상 다른 사람보다 먼저 마침)</label>
+</div></div>
+
+</div>
+<div class="sec-block sec-byeong"><div class="sec-top"><span class="sec-badge badge-byeong">최근 한달 증상 &nbsp;·&nbsp; 병증(病證)</span><span class="sec-desc">지난 한 달 동안의 식욕·식사량 상태를 기준으로 응답해 주세요.</span></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QSB-식1</span><span class="qtext">지난 한달 동안, 식욕은?</span></div><div class="choices"><label class="choice"><input type="radio" name="qSB-식1"> <span class="cnum">1.</span> 1. 평소보다 많이 줄어 먹고 싶은 생각이 잘 나지 않았다</label>
+<label class="choice"><input type="radio" name="qSB-식1"> <span class="cnum">2.</span> 2. 평소보다 식욕이 조금 줄어든 편이었다</label>
+<label class="choice"><input type="radio" name="qSB-식1"> <span class="cnum">3.</span> 3. 평소와 비슷한 수준이었다</label>
+<label class="choice"><input type="radio" name="qSB-식1"> <span class="cnum">4.</span> 4. 평소보다 식욕이 조금 늘어난 편이었다</label>
+<label class="choice"><input type="radio" name="qSB-식1"> <span class="cnum">5.</span> 5. 식욕이 과해 조절하기 힘들 때가 있었다</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QSB-식2</span><span class="qtext">지난 한달 동안, 식사량은?</span></div><div class="choices"><label class="choice"><input type="radio" name="qSB-식2"> <span class="cnum">1.</span> 1. 식사량이 많이 줄어 평소의 절반 이하로 먹을 때가 많았다</label>
+<label class="choice"><input type="radio" name="qSB-식2"> <span class="cnum">2.</span> 2. 평소보다 식사량이 조금 줄어든 편이었다</label>
+<label class="choice"><input type="radio" name="qSB-식2"> <span class="cnum">3.</span> 3. 평소와 비슷한 수준이었다</label>
+<label class="choice"><input type="radio" name="qSB-식2"> <span class="cnum">4.</span> 4. 평소보다 식사량이 조금 늘어난 편이었다</label>
+<label class="choice"><input type="radio" name="qSB-식2"> <span class="cnum">5.</span> 5. 식사량이 많이 늘어 평소의 1.5배 이상으로 먹을 때가 많았다</label>
+</div></div>
+
+</div>
+</div>
+
+<div class="domain">
+<div class="domain-header"><span class="d-icon">🫄</span><div class="d-info"><div class="d-title">영역 4. 소화</div><div class="d-counts"><span class="cnt-badge cnt-soc">소증 2문항</span><span class="cnt-badge cnt-byeong">병증 7문항</span></div></div></div>
+
+<div class="sec-block sec-soc"><div class="sec-top"><span class="sec-badge badge-soc">평소 증상 &nbsp;·&nbsp; 소증(素證)</span><span class="sec-desc">평소(최근 3개월 이내) 소화 상태를 기준으로 응답해 주세요.</span></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS17</span><span class="qtext">소화 불편감(더부룩함·트림·복통·속쓰림 등)을 얼마나 자주 느낍니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS17"> <span class="cnum">1.</span> 거의 없다 (연 1~2회 미만)</label>
+<label class="choice"><input type="radio" name="qS17"> <span class="cnum">2.</span> 가끔 있다 (월 1~2회 정도)</label>
+<label class="choice"><input type="radio" name="qS17"> <span class="cnum">3.</span> 보통이다 (주 1회 정도)</label>
+<label class="choice"><input type="radio" name="qS17"> <span class="cnum">4.</span> 자주 있다 (주 3~4회 이상)</label>
+<label class="choice"><input type="radio" name="qS17"> <span class="cnum">5.</span> 항상 있다 (거의 매일)</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS18</span><span class="qtext">스트레스를 받거나 신경 쓸 일이 있으면 소화가 잘 안 되는 편입니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS18"> <span class="cnum">1.</span> 전혀 영향없다</label>
+<label class="choice"><input type="radio" name="qS18"> <span class="cnum">2.</span> 거의 영향없다 (다소 영향받지만 불편할 정도는 아님)</label>
+<label class="choice"><input type="radio" name="qS18"> <span class="cnum">3.</span> 보통이다 (심한 스트레스 시에만 영향받음)</label>
+<label class="choice"><input type="radio" name="qS18"> <span class="cnum">4.</span> 어느 정도 영향받는다 (신경 쓸 일이 생기면 대개 소화가 안 됨)</label>
+<label class="choice"><input type="radio" name="qS18"> <span class="cnum">5.</span> 항상 영향받는다 (작은 스트레스에도 즉시 소화가 안 됨)</label>
+</div></div>
+
+</div>
+<div class="sec-block sec-byeong"><div class="sec-top"><span class="sec-badge badge-byeong">최근 한달 증상 &nbsp;·&nbsp; 병증(病證)</span><span class="sec-desc">지난 한 달 동안의 소화 관련 증상을 기준으로 응답해 주세요.</span></div>
+
+<div class="q-group"><div class="q-group-label">지난 한달 동안, 소화와 관련된 불편감은?</div><div class="table-wrap"><table class="mtx"><thead><tr><th class="row-label-th"></th><th>없었다</th><th>드물게<br>(주1회미만)</th><th>가끔<br>(주1~2회)</th><th>자주<br>(주3~4회)</th><th>거의매일<br>(주5회이상)</th></tr></thead><tbody><tr><td class="row-label">윗배(상복부)가 더부룩하거나 답답했다.</td><td><input type="radio" name="b_dg1_0"></td><td><input type="radio" name="b_dg1_1"></td><td><input type="radio" name="b_dg1_2"></td><td><input type="radio" name="b_dg1_3"></td><td><input type="radio" name="b_dg1_4"></td></tr>
+<tr><td class="row-label">속쓰림이 있었다.</td><td><input type="radio" name="b_dg2_0"></td><td><input type="radio" name="b_dg2_1"></td><td><input type="radio" name="b_dg2_2"></td><td><input type="radio" name="b_dg2_3"></td><td><input type="radio" name="b_dg2_4"></td></tr>
+<tr><td class="row-label">속이 울렁거리고 메스꺼움이 있었다.</td><td><input type="radio" name="b_dg3_0"></td><td><input type="radio" name="b_dg3_1"></td><td><input type="radio" name="b_dg3_2"></td><td><input type="radio" name="b_dg3_3"></td><td><input type="radio" name="b_dg3_4"></td></tr>
+<tr><td class="row-label">윗배(상복부)에 통증이 있었다.</td><td><input type="radio" name="b_dg4_0"></td><td><input type="radio" name="b_dg4_1"></td><td><input type="radio" name="b_dg4_2"></td><td><input type="radio" name="b_dg4_3"></td><td><input type="radio" name="b_dg4_4"></td></tr>
+<tr><td class="row-label">명치가 뭉쳐 단단했다.</td><td><input type="radio" name="b_dg5_0"></td><td><input type="radio" name="b_dg5_1"></td><td><input type="radio" name="b_dg5_2"></td><td><input type="radio" name="b_dg5_3"></td><td><input type="radio" name="b_dg5_4"></td></tr>
+<tr><td class="row-label">트림이 많이 나왔다.</td><td><input type="radio" name="b_dg6_0"></td><td><input type="radio" name="b_dg6_1"></td><td><input type="radio" name="b_dg6_2"></td><td><input type="radio" name="b_dg6_3"></td><td><input type="radio" name="b_dg6_4"></td></tr>
+<tr><td class="row-label">신물이 넘어 왔다.</td><td><input type="radio" name="b_dg7_0"></td><td><input type="radio" name="b_dg7_1"></td><td><input type="radio" name="b_dg7_2"></td><td><input type="radio" name="b_dg7_3"></td><td><input type="radio" name="b_dg7_4"></td></tr>
+</tbody></table></div></div>
+
+</div>
+</div>
+
+<div class="domain">
+<div class="domain-header"><span class="d-icon">🥤</span><div class="d-info"><div class="d-title">영역 5. 갈증 · 물마시기</div><div class="d-counts"><span class="cnt-badge cnt-soc">소증 3문항</span><span class="cnt-badge cnt-byeong">병증 3문항</span></div></div></div>
+
+<div class="sec-block sec-soc"><div class="sec-top"><span class="sec-badge badge-soc">평소 증상 &nbsp;·&nbsp; 소증(素證)</span><span class="sec-desc">평소(최근 3개월 이내) 음수(飮水) 상태를 기준으로 응답해 주세요.</span></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS19</span><span class="qtext">평소 하루에 마시는 물의 양은 어느 정도입니까? (순수 물 섭취량 기준)</span></div><div class="choices"><label class="choice"><input type="radio" name="qS19"> <span class="cnum">1.</span> 거의 마시지 않거나 아주 적다 (하루 2잔 미만 / 400ml 미만)</label>
+<label class="choice"><input type="radio" name="qS19"> <span class="cnum">2.</span> 평소 적게 마시는 편이다 (하루 3~4잔 / 약 500~800ml)</label>
+<label class="choice"><input type="radio" name="qS19"> <span class="cnum">3.</span> 보통 수준으로 마신다 (하루 5~7잔 / 약 1~1.5L)</label>
+<label class="choice"><input type="radio" name="qS19"> <span class="cnum">4.</span> 평소 많이 마시는 편이다 (하루 8~10잔 / 약 1.5~2L)</label>
+<label class="choice"><input type="radio" name="qS19"> <span class="cnum">5.</span> 마시는 양이 아주 많다 (하루 10잔 이상 / 2L 초과)</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS20</span><span class="qtext">평소 선호하는 음료·물의 온도는 어느 쪽입니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS20"> <span class="cnum">1.</span> 항상 따뜻한 것을 선호한다 (찬 것은 싫거나 몸에 안 맞음)</label>
+<label class="choice"><input type="radio" name="qS20"> <span class="cnum">2.</span> 대체로 따뜻한 것을 선호한다</label>
+<label class="choice"><input type="radio" name="qS20"> <span class="cnum">3.</span> 온도에 크게 상관없다</label>
+<label class="choice"><input type="radio" name="qS20"> <span class="cnum">4.</span> 대체로 찬 것을 선호한다</label>
+<label class="choice"><input type="radio" name="qS20"> <span class="cnum">5.</span> 항상 차가운 것을 선호한다 (따뜻한 것은 싫거나 답답함)</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS21</span><span class="qtext">평소 식사 중에 물을 마시는 습관은 어떠합니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS21"> <span class="cnum">1.</span> 거의 마시지 않는다 (물을 마시면 속이 불편할 때가 있음)</label>
+<label class="choice"><input type="radio" name="qS21"> <span class="cnum">2.</span> 적게 마시는 편이다 (식사 끝에만 입가심으로 조금 마심)</label>
+<label class="choice"><input type="radio" name="qS21"> <span class="cnum">3.</span> 보통이다 (음식물을 삼키기 편할 정도로만 가끔 마심)</label>
+<label class="choice"><input type="radio" name="qS21"> <span class="cnum">4.</span> 많이 마시는 편이다 (식사 중간중간 물을 자주 마심)</label>
+<label class="choice"><input type="radio" name="qS21"> <span class="cnum">5.</span> 매우 많이 마신다 (물이나 국물이 있어야 식사가 수월함)</label>
+</div></div>
+
+</div>
+<div class="sec-block sec-byeong"><div class="sec-top"><span class="sec-badge badge-byeong">최근 한달 증상 &nbsp;·&nbsp; 병증(病證)</span><span class="sec-desc">지난 한 달 동안의 갈증·물마시기 관련 증상을 기준으로 응답해 주세요.</span></div>
+
+<div class="q-group"><div class="q-group-label">지난 한달 동안, 물을 마시거나 갈증과 관련된 불편감은?</div><div class="table-wrap"><table class="mtx"><thead><tr><th class="row-label-th"></th><th>없었다</th><th>드물게<br>(주1회미만)</th><th>가끔<br>(주1~2회)</th><th>자주<br>(주3~4회)</th><th>거의매일<br>(주5회이상)</th></tr></thead><tbody><tr><td class="row-label">심한 입마름이 있었다.</td><td><input type="radio" name="b_th1_0"></td><td><input type="radio" name="b_th1_1"></td><td><input type="radio" name="b_th1_2"></td><td><input type="radio" name="b_th1_3"></td><td><input type="radio" name="b_th1_4"></td></tr>
+<tr><td class="row-label">심한 갈증을 많이 느꼈다.</td><td><input type="radio" name="b_th2_0"></td><td><input type="radio" name="b_th2_1"></td><td><input type="radio" name="b_th2_2"></td><td><input type="radio" name="b_th2_3"></td><td><input type="radio" name="b_th2_4"></td></tr>
+<tr><td class="row-label">갈증이 나서 물을 많이 마셨다.</td><td><input type="radio" name="b_th3_0"></td><td><input type="radio" name="b_th3_1"></td><td><input type="radio" name="b_th3_2"></td><td><input type="radio" name="b_th3_3"></td><td><input type="radio" name="b_th3_4"></td></tr>
+</tbody></table></div></div>
+
+</div>
+</div>
+
+<div class="domain">
+<div class="domain-header"><span class="d-icon">🔬</span><div class="d-info"><div class="d-title">영역 6. 대변</div><div class="d-counts"><span class="cnt-badge cnt-soc">소증 7문항</span><span class="cnt-badge cnt-byeong">병증 6문항</span></div></div></div>
+
+<div class="sec-block sec-soc"><div class="sec-top"><span class="sec-badge badge-soc">평소 증상 &nbsp;·&nbsp; 소증(素證)</span><span class="sec-desc">평소(최근 3개월 이내) 대변 상태를 기준으로 응답해 주세요.</span></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS22</span><span class="qtext">다음 중 섭취 시 소화 불편 또는 설사를 유발하는 음식이 있습니까?</span></div><div class="q-note">※ 다중 선택 가능. 해당 없으면 마지막 항목을 선택해 주세요.</div><div class="choices"><label class="choice"><input type="checkbox" name="qS22"> <span class="cnum">□</span> 우유·유제품</label>
+<label class="choice"><input type="checkbox" name="qS22"> <span class="cnum">□</span> 매운 음식/자극적인 음식</label>
+<label class="choice"><input type="checkbox" name="qS22"> <span class="cnum">□</span> 찬 음식/차가운 음료</label>
+<label class="choice"><input type="checkbox" name="qS22"> <span class="cnum">□</span> 기름진 음식</label>
+<label class="choice"><input type="checkbox" name="qS22"> <span class="cnum">□</span> 밀가루 음식</label>
+<label class="choice"><input type="checkbox" name="qS22"> <span class="cnum">□</span> 날음식 (날생선·회·생채소 등)</label>
+<label class="choice"><input type="checkbox" name="qS22"> <span class="cnum">□</span> 해당 없음 (특정 유발 식품이 없음)</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS23</span><span class="qtext">평소 대변을 보는 횟수는 어느 정도입니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS23"> <span class="cnum">1.</span> 4일에 1회 이하</label>
+<label class="choice"><input type="radio" name="qS23"> <span class="cnum">2.</span> 2~3일에 1회</label>
+<label class="choice"><input type="radio" name="qS23"> <span class="cnum">3.</span> 하루 1회</label>
+<label class="choice"><input type="radio" name="qS23"> <span class="cnum">4.</span> 하루 2~3회</label>
+<label class="choice"><input type="radio" name="qS23"> <span class="cnum">5.</span> 하루 4회 이상</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS24</span><span class="qtext">대변을 보는 데 걸리는 시간은 어느 정도입니까?</span></div><div class="q-note">※ 순수하게 배변에 집중하는 시간 기준.</div><div class="choices"><label class="choice"><input type="radio" name="qS24"> <span class="cnum">1.</span> 항상 짧다 (3분 이내)</label>
+<label class="choice"><input type="radio" name="qS24"> <span class="cnum">2.</span> 대체로 짧다 (3~7분 이내)</label>
+<label class="choice"><input type="radio" name="qS24"> <span class="cnum">3.</span> 보통이다 (7~10분 이내)</label>
+<label class="choice"><input type="radio" name="qS24"> <span class="cnum">4.</span> 가끔 오래 걸린다 (주 2~3회 이상 10~15분)</label>
+<label class="choice"><input type="radio" name="qS24"> <span class="cnum">5.</span> 항상 오래 걸린다 (매번 15분 이상 힘을 주어야 함)</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS25</span><span class="qtext">평소 대변의 형태·굳기는 어떤 편입니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS25"> <span class="cnum">1.</span> 항상 굳고 딱딱하다</label>
+<label class="choice"><input type="radio" name="qS25"> <span class="cnum">2.</span> 형태는 잡히지만 쉽게 굳어지는 편이다</label>
+<label class="choice"><input type="radio" name="qS25"> <span class="cnum">3.</span> 매끈하고 부드러운 소시지 모양이다 (이상적 형태)</label>
+<label class="choice"><input type="radio" name="qS25"> <span class="cnum">4.</span> 형태는 잡히지만 쉽게 물러지거나 퍼지는 편이다</label>
+<label class="choice"><input type="radio" name="qS25"> <span class="cnum">5.</span> 항상 묽거나 흐물흐물하다</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS26</span><span class="qtext">대변 보는 시간대가 규칙적입니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS26"> <span class="cnum">1.</span> 항상 일정한 시간대에 본다</label>
+<label class="choice"><input type="radio" name="qS26"> <span class="cnum">2.</span> 대체로 일정하지만 가끔 그렇지 않을 때도 있다</label>
+<label class="choice"><input type="radio" name="qS26"> <span class="cnum">3.</span> 보통이다 (일주일에 3~4일 정도만 일정)</label>
+<label class="choice"><input type="radio" name="qS26"> <span class="cnum">4.</span> 불규칙한 편이다 (일정한 시간대가 거의 없음)</label>
+<label class="choice"><input type="radio" name="qS26"> <span class="cnum">5.</span> 매우 불규칙하다 (변의가 느껴질 때만 감)</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS27</span><span class="qtext">스트레스를 받거나 몸 상태가 나쁘면 대변 양상(굳기·횟수)이 달라집니까?</span></div><div class="q-note">※ 변화의 방향(굳어짐/묽어짐)을 선택해 주세요.</div><div class="choices"><label class="choice"><input type="radio" name="qS27"> <span class="cnum">1.</span> 변화 없다</label>
+<label class="choice"><input type="radio" name="qS27"> <span class="cnum">2.</span> 대변이 평소보다 딱딱해지거나 횟수가 줄어든다</label>
+<label class="choice"><input type="radio" name="qS27"> <span class="cnum">3.</span> 대변이 심하게 굳어지거나 며칠간 못 보게 된다</label>
+<label class="choice"><input type="radio" name="qS27"> <span class="cnum">4.</span> 대변이 평소보다 묽어지거나 횟수가 늘어난다</label>
+<label class="choice"><input type="radio" name="qS27"> <span class="cnum">5.</span> 배가 아프며 물설사를 하거나 화장실을 수시로 간다</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS28</span><span class="qtext">여행·출장 등 환경이 바뀌면 대변 양상이 달라집니까?</span></div><div class="q-note">※ 변화의 방향(굳어짐/묽어짐)을 선택해 주세요.</div><div class="choices"><label class="choice"><input type="radio" name="qS28"> <span class="cnum">1.</span> 변화 없다</label>
+<label class="choice"><input type="radio" name="qS28"> <span class="cnum">2.</span> 대변이 평소보다 딱딱해지거나 횟수가 줄어든다</label>
+<label class="choice"><input type="radio" name="qS28"> <span class="cnum">3.</span> 대변이 심하게 굳어지거나 며칠간 못 보게 된다</label>
+<label class="choice"><input type="radio" name="qS28"> <span class="cnum">4.</span> 대변이 평소보다 묽어지거나 횟수가 늘어난다</label>
+<label class="choice"><input type="radio" name="qS28"> <span class="cnum">5.</span> 배가 아프며 물설사를 하거나 화장실을 수시로 간다</label>
+</div></div>
+
+</div>
+<div class="sec-block sec-byeong"><div class="sec-top"><span class="sec-badge badge-byeong">최근 한달 증상 &nbsp;·&nbsp; 병증(病證)</span><span class="sec-desc">지난 한 달 동안의 대변 상태를 기준으로 응답해 주세요.</span></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QSB-변1</span><span class="qtext">지난 한달 동안, 대변을 보는 평균 횟수는?</span></div><div class="choices"><label class="choice"><input type="radio" name="qSB-변1"> <span class="cnum">1.</span> 1. 4일에 1회 이하</label>
+<label class="choice"><input type="radio" name="qSB-변1"> <span class="cnum">2.</span> 2. 2~3일에 1회</label>
+<label class="choice"><input type="radio" name="qSB-변1"> <span class="cnum">3.</span> 3. 하루에 1회</label>
+<label class="choice"><input type="radio" name="qSB-변1"> <span class="cnum">4.</span> 4. 하루에 2~3회</label>
+<label class="choice"><input type="radio" name="qSB-변1"> <span class="cnum">5.</span> 5. 하루에 4회 이상</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QSB-변2</span><span class="qtext">지난 한달 동안, 대변 형태는 어떠했습니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qSB-변2"> <span class="cnum">1.</span> 1. 호두알 같은 딱딱한 덩어리. 배설이 어렵다. (심한 변비)</label>
+<label class="choice"><input type="radio" name="qSB-변2"> <span class="cnum">2.</span> 2. 소시지처럼 굵고 울퉁불퉁하다. 비교적 딱딱하다. (약한 변비)</label>
+<label class="choice"><input type="radio" name="qSB-변2"> <span class="cnum">3.</span> 3. 소시지 모양으로 겉이 약간 갈라졌다. (정상변)</label>
+<label class="choice"><input type="radio" name="qSB-변2"> <span class="cnum">4.</span> 4. 소시지 모양이지만 결이 부드러워 배설하기 편하다. (정상변)</label>
+<label class="choice"><input type="radio" name="qSB-변2"> <span class="cnum">5.</span> 5. 뚝뚝 끊어지는 무른 덩어리. 배설이 편하다.</label>
+<label class="choice"><input type="radio" name="qSB-변2"> <span class="cnum">6.</span> 6. 배설하자마자 흩어질 정도로 무르다. (약한 설사)</label>
+<label class="choice"><input type="radio" name="qSB-변2"> <span class="cnum">7.</span> 7. 형태가 없이 묽은 변이다. (심한 설사)</label>
+</div></div>
+
+<div class="q-group"><div class="q-group-label">지난 한달 동안, 배변과 관련한 불편감이 얼마나 자주 있었습니까?</div><div class="table-wrap"><table class="mtx"><thead><tr><th class="row-label-th"></th><th>없었다</th><th>드물게<br>(주1회미만)</th><th>가끔<br>(주1~2회)</th><th>자주<br>(주3~4회)</th><th>거의매일<br>(주5회이상)</th></tr></thead><tbody><tr><td class="row-label">배가 아팠다.</td><td><input type="radio" name="b_bw1_0"></td><td><input type="radio" name="b_bw1_1"></td><td><input type="radio" name="b_bw1_2"></td><td><input type="radio" name="b_bw1_3"></td><td><input type="radio" name="b_bw1_4"></td></tr>
+<tr><td class="row-label">배에 가스가 많이 찼다. (배가 부풀어 오르는 느낌)</td><td><input type="radio" name="b_bw2_0"></td><td><input type="radio" name="b_bw2_1"></td><td><input type="radio" name="b_bw2_2"></td><td><input type="radio" name="b_bw2_3"></td><td><input type="radio" name="b_bw2_4"></td></tr>
+<tr><td class="row-label">대변을 볼 때 힘이 들었다.</td><td><input type="radio" name="b_bw3_0"></td><td><input type="radio" name="b_bw3_1"></td><td><input type="radio" name="b_bw3_2"></td><td><input type="radio" name="b_bw3_3"></td><td><input type="radio" name="b_bw3_4"></td></tr>
+<tr><td class="row-label">대변을 보고 나서 잔변감을 느꼈다.</td><td><input type="radio" name="b_bw4_0"></td><td><input type="radio" name="b_bw4_1"></td><td><input type="radio" name="b_bw4_2"></td><td><input type="radio" name="b_bw4_3"></td><td><input type="radio" name="b_bw4_4"></td></tr>
+</tbody></table></div></div>
+
+</div>
+</div>
+
+<div class="domain">
+<div class="domain-header"><span class="d-icon">💧</span><div class="d-info"><div class="d-title">영역 7. 소변</div><div class="d-counts"><span class="cnt-badge cnt-soc">소증 3문항</span><span class="cnt-badge cnt-byeong">병증 7문항</span></div></div></div>
+
+<div class="sec-block sec-soc"><div class="sec-top"><span class="sec-badge badge-soc">평소 증상 &nbsp;·&nbsp; 소증(素證)</span><span class="sec-desc">평소(최근 3개월 이내) 소변 상태를 기준으로 응답해 주세요.</span></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS29</span><span class="qtext">평소 소변 횟수는 같은 나이대 사람들과 비교하여 어느 편입니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS29"> <span class="cnum">1.</span> 항상 다른 사람보다 적다</label>
+<label class="choice"><input type="radio" name="qS29"> <span class="cnum">2.</span> 상황에 따라 적어질 때가 있다</label>
+<label class="choice"><input type="radio" name="qS29"> <span class="cnum">3.</span> 보통이다 (하루 5~7회 내외)</label>
+<label class="choice"><input type="radio" name="qS29"> <span class="cnum">4.</span> 상황에 따라 자주 볼 때가 있다</label>
+<label class="choice"><input type="radio" name="qS29"> <span class="cnum">5.</span> 항상 다른 사람보다 자주 본다 (하루 10회 이상)</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS30</span><span class="qtext">스트레스를 받거나 몸 상태가 나쁘면 소변 횟수에 변화가 생깁니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS30"> <span class="cnum">1.</span> 변화 없다</label>
+<label class="choice"><input type="radio" name="qS30"> <span class="cnum">2.</span> 소변 횟수가 조금 줄어드는 경향이 있다</label>
+<label class="choice"><input type="radio" name="qS30"> <span class="cnum">3.</span> 소변 횟수가 눈에 띄게 줄어든다</label>
+<label class="choice"><input type="radio" name="qS30"> <span class="cnum">4.</span> 소변 횟수가 조금 늘어나는 경향이 있다</label>
+<label class="choice"><input type="radio" name="qS30"> <span class="cnum">5.</span> 소변 횟수가 크게 늘어난다</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS31</span><span class="qtext">스트레스를 받거나 몸 상태가 나쁘면 소변 시 불편감(잔뇨감·통증·불쾌감 등)이 생깁니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS31"> <span class="cnum">1.</span> 거의 없다 (연 1~2회 미만)</label>
+<label class="choice"><input type="radio" name="qS31"> <span class="cnum">2.</span> 가끔 있다 (월 1~2회 정도)</label>
+<label class="choice"><input type="radio" name="qS31"> <span class="cnum">3.</span> 보통이다 (주 1회 정도)</label>
+<label class="choice"><input type="radio" name="qS31"> <span class="cnum">4.</span> 자주 있다 (주 3~4회 이상)</label>
+<label class="choice"><input type="radio" name="qS31"> <span class="cnum">5.</span> 항상 있다 (거의 매일)</label>
+</div></div>
+
+</div>
+<div class="sec-block sec-byeong"><div class="sec-top"><span class="sec-badge badge-byeong">최근 한달 증상 &nbsp;·&nbsp; 병증(病證)</span><span class="sec-desc">지난 한 달 동안의 소변 관련 증상을 기준으로 응답해 주세요.</span></div>
+
+<div class="q-group"><div class="q-group-label">지난 한달 동안, 소변과 관련한 불편감이 얼마나 자주 있었습니까?</div><div class="table-wrap"><table class="mtx"><thead><tr><th class="row-label-th"></th><th>없었다</th><th>드물게<br>(주1회미만)</th><th>가끔<br>(주1~2회)</th><th>자주<br>(주3~4회)</th><th>거의매일<br>(주5회이상)</th></tr></thead><tbody><tr><td class="row-label">소변을 자주 봤다.</td><td><input type="radio" name="b_ur1_0"></td><td><input type="radio" name="b_ur1_1"></td><td><input type="radio" name="b_ur1_2"></td><td><input type="radio" name="b_ur1_3"></td><td><input type="radio" name="b_ur1_4"></td></tr>
+<tr><td class="row-label">물 마신 양에 비해 소변량이 적었다.</td><td><input type="radio" name="b_ur2_0"></td><td><input type="radio" name="b_ur2_1"></td><td><input type="radio" name="b_ur2_2"></td><td><input type="radio" name="b_ur2_3"></td><td><input type="radio" name="b_ur2_4"></td></tr>
+<tr><td class="row-label">물 마신 양에 비해 소변량이 많았다.</td><td><input type="radio" name="b_ur3_0"></td><td><input type="radio" name="b_ur3_1"></td><td><input type="radio" name="b_ur3_2"></td><td><input type="radio" name="b_ur3_3"></td><td><input type="radio" name="b_ur3_4"></td></tr>
+<tr><td class="row-label">소변이 잘 나오지 않았다.</td><td><input type="radio" name="b_ur4_0"></td><td><input type="radio" name="b_ur4_1"></td><td><input type="radio" name="b_ur4_2"></td><td><input type="radio" name="b_ur4_3"></td><td><input type="radio" name="b_ur4_4"></td></tr>
+<tr><td class="row-label">소변색이 진했다.</td><td><input type="radio" name="b_ur5_0"></td><td><input type="radio" name="b_ur5_1"></td><td><input type="radio" name="b_ur5_2"></td><td><input type="radio" name="b_ur5_3"></td><td><input type="radio" name="b_ur5_4"></td></tr>
+<tr><td class="row-label">소변을 참기 어려웠다.</td><td><input type="radio" name="b_ur6_0"></td><td><input type="radio" name="b_ur6_1"></td><td><input type="radio" name="b_ur6_2"></td><td><input type="radio" name="b_ur6_3"></td><td><input type="radio" name="b_ur6_4"></td></tr>
+<tr><td class="row-label">소변을 보고 난 후에 시원하지 않았다.</td><td><input type="radio" name="b_ur7_0"></td><td><input type="radio" name="b_ur7_1"></td><td><input type="radio" name="b_ur7_2"></td><td><input type="radio" name="b_ur7_3"></td><td><input type="radio" name="b_ur7_4"></td></tr>
+</tbody></table></div></div>
+
+</div>
+</div>
+
+<div class="domain">
+<div class="domain-header"><span class="d-icon">💦</span><div class="d-info"><div class="d-title">영역 8. 땀</div><div class="d-counts"><span class="cnt-badge cnt-soc">소증 2문항</span><span class="cnt-badge cnt-byeong">병증 4문항</span></div></div></div>
+
+<div class="sec-block sec-soc"><div class="sec-top"><span class="sec-badge badge-soc">평소 증상 &nbsp;·&nbsp; 소증(素證)</span><span class="sec-desc">평소(최근 3개월 이내) 땀 상태를 기준으로 응답해 주세요.</span></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS32</span><span class="qtext">더운 날씨 또는 운동 시 땀을 어느 정도 흘리는 편입니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS32"> <span class="cnum">1.</span> 전혀 나지 않는다 (더워도 피부가 보송보송함)</label>
+<label class="choice"><input type="radio" name="qS32"> <span class="cnum">2.</span> 약간 난다 (피부가 끈끈해지지만 눈에 띄게 흐르지 않음)</label>
+<label class="choice"><input type="radio" name="qS32"> <span class="cnum">3.</span> 보통이다 (송골송골 맺히는 정도, 금방 마름)</label>
+<label class="choice"><input type="radio" name="qS32"> <span class="cnum">4.</span> 많이 난다 (땀이 흐르는 게 느껴지며 닦아낼 정도)</label>
+<label class="choice"><input type="radio" name="qS32"> <span class="cnum">5.</span> 매우 많이 난다 (옷이 젖을 정도로 줄줄 흐름)</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS33</span><span class="qtext">땀을 흘리고 나면 불편감(기운 없음·어지러움·두통 등)이 생깁니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS33"> <span class="cnum">1.</span> 오히려 몸이 가볍고 상쾌해진다</label>
+<label class="choice"><input type="radio" name="qS33"> <span class="cnum">2.</span> 불편감이 없고 컨디션 변화도 없다</label>
+<label class="choice"><input type="radio" name="qS33"> <span class="cnum">3.</span> 약간 나른하거나 피곤함을 조금 느낀다</label>
+<label class="choice"><input type="radio" name="qS33"> <span class="cnum">4.</span> 기운이 빠지고 회복이 더디다</label>
+<label class="choice"><input type="radio" name="qS33"> <span class="cnum">5.</span> 기운이 심하게 빠지거나 어지러움·두통 등 불편감이 생긴다</label>
+</div></div>
+
+</div>
+<div class="sec-block sec-byeong"><div class="sec-top"><span class="sec-badge badge-byeong">최근 한달 증상 &nbsp;·&nbsp; 병증(病證)</span><span class="sec-desc">지난 한 달 동안의 땀 관련 증상을 기준으로 응답해 주세요.</span></div>
+
+<div class="q-group"><div class="q-group-label">지난 한달 동안, 땀과 관련한 불편감이 얼마나 자주 있었습니까?</div><div class="table-wrap"><table class="mtx"><thead><tr><th class="row-label-th"></th><th>없었다</th><th>드물게<br>(주1회미만)</th><th>가끔<br>(주1~2회)</th><th>자주<br>(주3~4회)</th><th>거의매일<br>(주5회이상)</th></tr></thead><tbody><tr><td class="row-label">덥거나 활동을 하지 않아도 식은땀이 났다.</td><td><input type="radio" name="b_sw1_0"></td><td><input type="radio" name="b_sw1_1"></td><td><input type="radio" name="b_sw1_2"></td><td><input type="radio" name="b_sw1_3"></td><td><input type="radio" name="b_sw1_4"></td></tr>
+<tr><td class="row-label">자는 동안 식은 땀이 났다.</td><td><input type="radio" name="b_sw2_0"></td><td><input type="radio" name="b_sw2_1"></td><td><input type="radio" name="b_sw2_2"></td><td><input type="radio" name="b_sw2_3"></td><td><input type="radio" name="b_sw2_4"></td></tr>
+<tr><td class="row-label">손발에 땀이 났다.</td><td><input type="radio" name="b_sw3_0"></td><td><input type="radio" name="b_sw3_1"></td><td><input type="radio" name="b_sw3_2"></td><td><input type="radio" name="b_sw3_3"></td><td><input type="radio" name="b_sw3_4"></td></tr>
+<tr><td class="row-label">낭습이 찼다. (여성은 '지난 한달 동안 없었다'에 체크)</td><td><input type="radio" name="b_sw4_0"></td><td><input type="radio" name="b_sw4_1"></td><td><input type="radio" name="b_sw4_2"></td><td><input type="radio" name="b_sw4_3"></td><td><input type="radio" name="b_sw4_4"></td></tr>
+</tbody></table></div></div>
+
+</div>
+</div>
+
+<div class="domain">
+<div class="domain-header"><span class="d-icon">🌡</span><div class="d-info"><div class="d-title">영역 9. 체온 · 한열 민감도</div><div class="d-counts"><span class="cnt-badge cnt-soc">소증 5문항</span><span class="cnt-badge cnt-byeong">병증 21문항</span></div></div></div>
+
+<div class="sec-block sec-soc"><div class="sec-top"><span class="sec-badge badge-soc">평소 증상 &nbsp;·&nbsp; 소증(素證)</span><span class="sec-desc">평소(최근 3개월 이내) 한열 민감도를 기준으로 응답해 주세요.</span></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS34</span><span class="qtext">평소 추위를 타는 편입니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS34"> <span class="cnum">1.</span> 전혀 타지 않는다</label>
+<label class="choice"><input type="radio" name="qS34"> <span class="cnum">2.</span> 약간 타는 편이지만 일상생활에 지장이 없다</label>
+<label class="choice"><input type="radio" name="qS34"> <span class="cnum">3.</span> 다소 타는 편이며 불편함을 느낀다</label>
+<label class="choice"><input type="radio" name="qS34"> <span class="cnum">4.</span> 많이 타는 편이라 일상생활에 큰 불편을 느낀다</label>
+<label class="choice"><input type="radio" name="qS34"> <span class="cnum">5.</span> 심하게 타는 편이라 몸 상태까지 나빠진다</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS35</span><span class="qtext">평소 더위를 타는 편입니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS35"> <span class="cnum">1.</span> 전혀 타지 않는다</label>
+<label class="choice"><input type="radio" name="qS35"> <span class="cnum">2.</span> 약간 타는 편이지만 일상생활에 지장이 없다</label>
+<label class="choice"><input type="radio" name="qS35"> <span class="cnum">3.</span> 다소 타는 편이며 불편함을 느낀다</label>
+<label class="choice"><input type="radio" name="qS35"> <span class="cnum">4.</span> 많이 타는 편이라 일상생활에 큰 불편을 느낀다</label>
+<label class="choice"><input type="radio" name="qS35"> <span class="cnum">5.</span> 심하게 타는 편이라 몸 상태까지 나빠진다</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS36</span><span class="qtext">여름에 에어컨·선풍기 바람을 직접 맞는 것을 불편하게 느낍니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS36"> <span class="cnum">1.</span> 전혀 불편하지 않다</label>
+<label class="choice"><input type="radio" name="qS36"> <span class="cnum">2.</span> 약간 불편하지만 일상생활에 지장이 없다</label>
+<label class="choice"><input type="radio" name="qS36"> <span class="cnum">3.</span> 다소 불편하며 찬 바람을 피하게 된다</label>
+<label class="choice"><input type="radio" name="qS36"> <span class="cnum">4.</span> 많이 불편하여 일상생활에 큰 불편을 겪는다</label>
+<label class="choice"><input type="radio" name="qS36"> <span class="cnum">5.</span> 심하게 불편하며 몸 상태까지 나빠진다 (예: 근육통, 감기 기운 등)</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS37</span><span class="qtext">겨울에 히터·난방 열기를 직접 맞는 것을 불편하게 느낍니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS37"> <span class="cnum">1.</span> 전혀 불편하지 않다</label>
+<label class="choice"><input type="radio" name="qS37"> <span class="cnum">2.</span> 약간 불편하지만 일상생활에 지장이 없다</label>
+<label class="choice"><input type="radio" name="qS37"> <span class="cnum">3.</span> 다소 불편하며 열기를 피하게 된다</label>
+<label class="choice"><input type="radio" name="qS37"> <span class="cnum">4.</span> 많이 불편하여 일상생활에 큰 불편을 겪는다</label>
+<label class="choice"><input type="radio" name="qS37"> <span class="cnum">5.</span> 심하게 불편하며 몸 상태까지 나빠진다 (예: 답답함, 두통, 안구건조 등)</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS38</span><span class="qtext">공기가 탁하거나 밀폐된 장소에 있으면 쉽게 답답함을 느낍니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS38"> <span class="cnum">1.</span> 전혀 불편하지 않다</label>
+<label class="choice"><input type="radio" name="qS38"> <span class="cnum">2.</span> 약간 불편하지만 일상생활에 지장이 없다</label>
+<label class="choice"><input type="radio" name="qS38"> <span class="cnum">3.</span> 다소 불편하며 그런 상황을 피하게 된다</label>
+<label class="choice"><input type="radio" name="qS38"> <span class="cnum">4.</span> 많이 불편하여 일상생활에 큰 불편을 겪는다</label>
+<label class="choice"><input type="radio" name="qS38"> <span class="cnum">5.</span> 심하게 불편하며 몸 상태까지 나빠진다</label>
+</div></div>
+
+</div>
+<div class="sec-block sec-byeong"><div class="sec-top"><span class="sec-badge badge-byeong">최근 한달 증상 &nbsp;·&nbsp; 병증(病證)</span><span class="sec-desc">지난 한 달 동안의 한열 관련 증상을 기준으로 응답해 주세요.</span></div>
+
+<div class="q-group-label">지난 한달 동안, 다음과 같은 불편감이 있었습니까?</div>
+<div class="sub-group-label">① 피로 · 기력</div>
+<div class="q-group"><div class="table-wrap"><table class="mtx"><thead><tr><th class="row-label-th"></th><th>없었다</th><th>드물게<br>(주1회미만)</th><th>가끔<br>(주1~2회)</th><th>자주<br>(주3~4회)</th><th>거의매일<br>(주5회이상)</th></tr></thead><tbody><tr><td class="row-label">심한 피로감을 느꼈다.</td><td><input type="radio" name="b_ht_f1_0"></td><td><input type="radio" name="b_ht_f1_1"></td><td><input type="radio" name="b_ht_f1_2"></td><td><input type="radio" name="b_ht_f1_3"></td><td><input type="radio" name="b_ht_f1_4"></td></tr>
+</tbody></table></div></div>
+
+<div class="sub-group-label">② 한열 감각</div>
+<div class="q-group"><div class="table-wrap"><table class="mtx"><thead><tr><th class="row-label-th"></th><th>없었다</th><th>드물게<br>(주1회미만)</th><th>가끔<br>(주1~2회)</th><th>자주<br>(주3~4회)</th><th>거의매일<br>(주5회이상)</th></tr></thead><tbody><tr><td class="row-label">머리와 얼굴로 열이 올랐다.</td><td><input type="radio" name="b_ht_h1_0"></td><td><input type="radio" name="b_ht_h1_1"></td><td><input type="radio" name="b_ht_h1_2"></td><td><input type="radio" name="b_ht_h1_3"></td><td><input type="radio" name="b_ht_h1_4"></td></tr>
+<tr><td class="row-label">이유없이 얼굴이 붉어졌다.</td><td><input type="radio" name="b_ht_h2_0"></td><td><input type="radio" name="b_ht_h2_1"></td><td><input type="radio" name="b_ht_h2_2"></td><td><input type="radio" name="b_ht_h2_3"></td><td><input type="radio" name="b_ht_h2_4"></td></tr>
+<tr><td class="row-label">온몸에 한기를 느꼈다.</td><td><input type="radio" name="b_ht_h3_0"></td><td><input type="radio" name="b_ht_h3_1"></td><td><input type="radio" name="b_ht_h3_2"></td><td><input type="radio" name="b_ht_h3_3"></td><td><input type="radio" name="b_ht_h3_4"></td></tr>
+<tr><td class="row-label">온몸에 열감을 느꼈다.</td><td><input type="radio" name="b_ht_h4_0"></td><td><input type="radio" name="b_ht_h4_1"></td><td><input type="radio" name="b_ht_h4_2"></td><td><input type="radio" name="b_ht_h4_3"></td><td><input type="radio" name="b_ht_h4_4"></td></tr>
+<tr><td class="row-label">손발이 찼다.</td><td><input type="radio" name="b_ht_h5_0"></td><td><input type="radio" name="b_ht_h5_1"></td><td><input type="radio" name="b_ht_h5_2"></td><td><input type="radio" name="b_ht_h5_3"></td><td><input type="radio" name="b_ht_h5_4"></td></tr>
+<tr><td class="row-label">손발에 열감을 느꼈다.</td><td><input type="radio" name="b_ht_h6_0"></td><td><input type="radio" name="b_ht_h6_1"></td><td><input type="radio" name="b_ht_h6_2"></td><td><input type="radio" name="b_ht_h6_3"></td><td><input type="radio" name="b_ht_h6_4"></td></tr>
+</tbody></table></div></div>
+
+<div class="sub-group-label">③ 심폐 · 호흡</div>
+<div class="q-group"><div class="table-wrap"><table class="mtx"><thead><tr><th class="row-label-th"></th><th>없었다</th><th>드물게<br>(주1회미만)</th><th>가끔<br>(주1~2회)</th><th>자주<br>(주3~4회)</th><th>거의매일<br>(주5회이상)</th></tr></thead><tbody><tr><td class="row-label">이유없이 가슴이 답답했다.</td><td><input type="radio" name="b_ht_c1_0"></td><td><input type="radio" name="b_ht_c1_1"></td><td><input type="radio" name="b_ht_c1_2"></td><td><input type="radio" name="b_ht_c1_3"></td><td><input type="radio" name="b_ht_c1_4"></td></tr>
+<tr><td class="row-label">일과 중에 이유없이 가슴이 두근거렸다.</td><td><input type="radio" name="b_ht_c2_0"></td><td><input type="radio" name="b_ht_c2_1"></td><td><input type="radio" name="b_ht_c2_2"></td><td><input type="radio" name="b_ht_c2_3"></td><td><input type="radio" name="b_ht_c2_4"></td></tr>
+<tr><td class="row-label">숨이 찼다.</td><td><input type="radio" name="b_ht_c3_0"></td><td><input type="radio" name="b_ht_c3_1"></td><td><input type="radio" name="b_ht_c3_2"></td><td><input type="radio" name="b_ht_c3_3"></td><td><input type="radio" name="b_ht_c3_4"></td></tr>
+</tbody></table></div></div>
+
+<div class="sub-group-label">④ 두부 증상</div>
+<div class="q-group"><div class="table-wrap"><table class="mtx"><thead><tr><th class="row-label-th"></th><th>없었다</th><th>드물게<br>(주1회미만)</th><th>가끔<br>(주1~2회)</th><th>자주<br>(주3~4회)</th><th>거의매일<br>(주5회이상)</th></tr></thead><tbody><tr><td class="row-label">두통이 있었다.</td><td><input type="radio" name="b_ht_d1_0"></td><td><input type="radio" name="b_ht_d1_1"></td><td><input type="radio" name="b_ht_d1_2"></td><td><input type="radio" name="b_ht_d1_3"></td><td><input type="radio" name="b_ht_d1_4"></td></tr>
+<tr><td class="row-label">어지러웠다.</td><td><input type="radio" name="b_ht_d2_0"></td><td><input type="radio" name="b_ht_d2_1"></td><td><input type="radio" name="b_ht_d2_2"></td><td><input type="radio" name="b_ht_d2_3"></td><td><input type="radio" name="b_ht_d2_4"></td></tr>
+</tbody></table></div></div>
+
+<div class="sub-group-label">⑤ 사지 말단</div>
+<div class="q-group"><div class="table-wrap"><table class="mtx"><thead><tr><th class="row-label-th"></th><th>없었다</th><th>드물게<br>(주1회미만)</th><th>가끔<br>(주1~2회)</th><th>자주<br>(주3~4회)</th><th>거의매일<br>(주5회이상)</th></tr></thead><tbody><tr><td class="row-label">손발이 저렸다.</td><td><input type="radio" name="b_ht_l1_0"></td><td><input type="radio" name="b_ht_l1_1"></td><td><input type="radio" name="b_ht_l1_2"></td><td><input type="radio" name="b_ht_l1_3"></td><td><input type="radio" name="b_ht_l1_4"></td></tr>
+<tr><td class="row-label">쥐가 났다.</td><td><input type="radio" name="b_ht_l2_0"></td><td><input type="radio" name="b_ht_l2_1"></td><td><input type="radio" name="b_ht_l2_2"></td><td><input type="radio" name="b_ht_l2_3"></td><td><input type="radio" name="b_ht_l2_4"></td></tr>
+</tbody></table></div></div>
+
+<div class="sub-group-label">⑥ 부종</div>
+<div class="q-group"><div class="table-wrap"><table class="mtx"><thead><tr><th class="row-label-th"></th><th>없었다</th><th>드물게<br>(주1회미만)</th><th>가끔<br>(주1~2회)</th><th>자주<br>(주3~4회)</th><th>거의매일<br>(주5회이상)</th></tr></thead><tbody><tr><td class="row-label">얼굴이나 손이 부었다. (아침)</td><td><input type="radio" name="b_ht_e1_0"></td><td><input type="radio" name="b_ht_e1_1"></td><td><input type="radio" name="b_ht_e1_2"></td><td><input type="radio" name="b_ht_e1_3"></td><td><input type="radio" name="b_ht_e1_4"></td></tr>
+<tr><td class="row-label">저녁에 다리가 부었다.</td><td><input type="radio" name="b_ht_e2_0"></td><td><input type="radio" name="b_ht_e2_1"></td><td><input type="radio" name="b_ht_e2_2"></td><td><input type="radio" name="b_ht_e2_3"></td><td><input type="radio" name="b_ht_e2_4"></td></tr>
+</tbody></table></div></div>
+
+<div class="sub-group-label">⑦ 피부</div>
+<div class="q-group"><div class="table-wrap"><table class="mtx"><thead><tr><th class="row-label-th"></th><th>없었다</th><th>드물게<br>(주1회미만)</th><th>가끔<br>(주1~2회)</th><th>자주<br>(주3~4회)</th><th>거의매일<br>(주5회이상)</th></tr></thead><tbody><tr><td class="row-label">피부가 가려웠다.</td><td><input type="radio" name="b_ht_s1_0"></td><td><input type="radio" name="b_ht_s1_1"></td><td><input type="radio" name="b_ht_s1_2"></td><td><input type="radio" name="b_ht_s1_3"></td><td><input type="radio" name="b_ht_s1_4"></td></tr>
+<tr><td class="row-label">피부에 두드러기나 발진이 생겼다.</td><td><input type="radio" name="b_ht_s2_0"></td><td><input type="radio" name="b_ht_s2_1"></td><td><input type="radio" name="b_ht_s2_2"></td><td><input type="radio" name="b_ht_s2_3"></td><td><input type="radio" name="b_ht_s2_4"></td></tr>
+</tbody></table></div></div>
+
+<div class="sub-group-label">⑧ 감각기 · 점막</div>
+<div class="q-group"><div class="table-wrap"><table class="mtx"><thead><tr><th class="row-label-th"></th><th>없었다</th><th>드물게<br>(주1회미만)</th><th>가끔<br>(주1~2회)</th><th>자주<br>(주3~4회)</th><th>거의매일<br>(주5회이상)</th></tr></thead><tbody><tr><td class="row-label">눈이 건조했다.</td><td><input type="radio" name="b_ht_m1_0"></td><td><input type="radio" name="b_ht_m1_1"></td><td><input type="radio" name="b_ht_m1_2"></td><td><input type="radio" name="b_ht_m1_3"></td><td><input type="radio" name="b_ht_m1_4"></td></tr>
+<tr><td class="row-label">입안이 헐었다. (구내염)</td><td><input type="radio" name="b_ht_m2_0"></td><td><input type="radio" name="b_ht_m2_1"></td><td><input type="radio" name="b_ht_m2_2"></td><td><input type="radio" name="b_ht_m2_3"></td><td><input type="radio" name="b_ht_m2_4"></td></tr>
+<tr><td class="row-label">목에 이물감이 있었다.</td><td><input type="radio" name="b_ht_m3_0"></td><td><input type="radio" name="b_ht_m3_1"></td><td><input type="radio" name="b_ht_m3_2"></td><td><input type="radio" name="b_ht_m3_3"></td><td><input type="radio" name="b_ht_m3_4"></td></tr>
+</tbody></table></div></div>
+
+</div>
+</div>
+
+<div class="domain">
+<div class="domain-header"><span class="d-icon">🧠</span><div class="d-info"><div class="d-title">영역 10. 정서 · 심리 반응 패턴</div><div class="d-counts"><span class="cnt-badge cnt-soc">소증 4문항</span></div></div></div>
+
+<div class="sec-block sec-soc"><div class="sec-top"><span class="sec-badge badge-soc">평소 증상 &nbsp;·&nbsp; 소증(素證)</span><span class="sec-desc">평소(최근 3개월 이내) 정서·심리 반응 패턴을 기준으로 응답해 주세요.</span></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS39</span><span class="qtext">스트레스를 받으면 주로 어떻게 반응합니까?</span></div><div class="q-note">※ 가장 가까운 것 1가지를 선택해 주세요.</div><div class="choices"><label class="choice"><input type="radio" name="qS39"> <span class="cnum">1.</span> 속으로 삭이며 참거나 혼자 해결하려 한다 (감정 표현을 아끼는 편)</label>
+<label class="choice"><input type="radio" name="qS39"> <span class="cnum">2.</span> 가까운 사람에게 털어놓거나 대화하면 해소한다 (감정 표출이 비교적 자유로움)</label>
+<label class="choice"><input type="radio" name="qS39"> <span class="cnum">3.</span> 잠을 자거나 다른 활동에 몰입하여 상황을 잊으려 한다</label>
+<label class="choice"><input type="radio" name="qS39"> <span class="cnum">4.</span> 말이 날카로워지거나 화·짜증을 내는 등 겉으로 쉽게 드러난다</label>
+<label class="choice"><input type="radio" name="qS39"> <span class="cnum">5.</span> 꼬리에 꼬리를 무는 걱정과 불안에 빠진다</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS40</span><span class="qtext">스트레스를 받으면 신체 증상(두통·소화장애·불면 등)으로 이어지는 경향이 있습니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS40"> <span class="cnum">1.</span> 거의 없다 (연 1~2회 미만)</label>
+<label class="choice"><input type="radio" name="qS40"> <span class="cnum">2.</span> 가끔 느끼며 며칠 내로 곧 회복된다 (월 1~2회 정도)</label>
+<label class="choice"><input type="radio" name="qS40"> <span class="cnum">3.</span> 종종 느끼며 일상에 약간의 불편을 준다 (월 3~4회 이상)</label>
+<label class="choice"><input type="radio" name="qS40"> <span class="cnum">4.</span> 자주 느끼며 몸 상태가 나빠지는 것이 느껴진다 (주 2~3회 이상)</label>
+<label class="choice"><input type="radio" name="qS40"> <span class="cnum">5.</span> 일상적으로 느끼며 신체 증상 때문에 생활이 힘들다 (거의 매일)</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS41</span><span class="qtext">평소 예민하거나 긴장이 높은 상태를 유지하는 편입니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS41"> <span class="cnum">1.</span> 전혀 아니다 (대체로 평온하고 느긋한 편)</label>
+<label class="choice"><input type="radio" name="qS41"> <span class="cnum">2.</span> 가끔 긴장하지만 금방 편안해진다</label>
+<label class="choice"><input type="radio" name="qS41"> <span class="cnum">3.</span> 긴장감이 종종 있으며 쉽게 이완되지 않는다</label>
+<label class="choice"><input type="radio" name="qS41"> <span class="cnum">4.</span> 긴장 상태가 지속되어 몸과 마음이 피로하다</label>
+<label class="choice"><input type="radio" name="qS41"> <span class="cnum">5.</span> 긴장이 풀리지 않아 늘 예민해져 있다</label>
+</div></div>
+
+<div class="question"><div class="q-head"><span class="qnum">QS42</span><span class="qtext">감정 기복(기분 변화의 폭)이 큰 편입니까?</span></div><div class="choices"><label class="choice"><input type="radio" name="qS42"> <span class="cnum">1.</span> 거의 없다 (항상 감정이 일정하고 차분한 편)</label>
+<label class="choice"><input type="radio" name="qS42"> <span class="cnum">2.</span> 약간 있지만 스스로 조절할 수 있다</label>
+<label class="choice"><input type="radio" name="qS42"> <span class="cnum">3.</span> 다소 있으며 기분에 따라 일의 효율이 달라지곤 한다</label>
+<label class="choice"><input type="radio" name="qS42"> <span class="cnum">4.</span> 기분 변화가 잦아 주변에서 이를 느끼기도 한다</label>
+<label class="choice"><input type="radio" name="qS42"> <span class="cnum">5.</span> 기복이 심해 감정을 다스리기가 힘들 때가 많다</label>
+</div></div>
+
+</div>
+</div>
+<div class="bottom-pad"></div>
+</div>
+</body>
+</html>
